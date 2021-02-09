@@ -10,7 +10,7 @@ const Weather = props => {
             {props.city}, {props.country}
             </h1>
             <h1 className="py-4">
-            <i className="wi wi-day-sleet display-1"></i>
+            <i className={`wi ${props.weatherIcon} display-1`}/>
 
             </h1>
             <h1 className="py-2">{props.temp_faren};</h1>

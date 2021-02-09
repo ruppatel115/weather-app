@@ -5,6 +5,9 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background:url('./image/background-for-webpage-new-website-background-coloring-pages-of-background-for-webpage.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 code {
@@ -15,8 +18,18 @@ code {
 
 h1 {
   text-align:center;
+  color: yellow;
 }
 
+h3 {
+  text-align:center;
+  color: yellow;
+}
+
+h4 {
+  text-align:center;
+  color: yellow;
+}
 div {
   text-align:center;
 }

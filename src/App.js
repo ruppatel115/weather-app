@@ -27,7 +27,6 @@ class App extends React.Component {
       error: false
     };
 
-    this.getWeather();
 
     this.weatherIcon = {
       Thunderstorm: "wi-thunderstorm",
@@ -48,37 +47,46 @@ class App extends React.Component {
   }
 
 
-  getWeatherIcon(icons, rangeNum){
+  getWeatherIcon(rangeNum){
 
     if(rangeNum >= 200 && rangeNum <=232){
-      this.setState({icon:this.icons.Thunderstorm})
+      this.setState({icon:this.weatherIcon.Thunderstorm})
     }
     if(rangeNum >= 300 && rangeNum <= 321){
-      this.setState({icon:this.icons.Drizzle})
+      this.setState({icon:this.weatherIcon.Drizzle})
     }
     if(rangeNum >= 500 && rangeNum <=521){
-      this.setState({icon:this.icons.Rain})
+      this.setState({icon:this.weatherIcon.Rain})
 
     }
     if(rangeNum >= 600 && rangeNum <=622){
-      this.setState({icon:this.icons.Snow})
+      this.setState({icon:this.weatherIcon.Snow})
     }
     if(rangeNum >= 600 && rangeNum <=622){
-      this.setState({icon:this.icons.Snow})
+      this.setState({icon:this.weatherIcon.Snow})
     }
     if(rangeNum === 800){
-      this.setState({icon:this.icons.Atmosphere})
+      this.setState({icon:this.weatherIcon.Atmosphere})
     }
     if(rangeNum >= 801 && rangeNum <=804){
-      this.setState({icon:this.icons.Clear})
+      this.setState({icon:this.weatherIcon.Clear})
     }
     else{
-      this.setState({icon:this.icons.Clouds})
+      this.setState({icon:this.weatherIcon.Clouds})
     }
 };
   
-  getWeather = async () => {
-    const api_call = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=Ithaca,us&appid=${API_key}`);
+  getWeather = async (e) => {
+
+    e.preventDefault();
+
+
+    const city = e.target.elements.city.value;
+    const country = e.target.elements.country.value;
+
+    if(city && country){
+
+    const api_call = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city},${country}&appid=${API_key}`);
     //translate all data we fetched into json format
     const response = await api_call.json();
   
@@ -96,16 +104,20 @@ class App extends React.Component {
     error : false
   }); 
 
-  //this.getWeatherIcon(this.weatherIcon, response.weather[0].id),
+  this.getWeatherIcon(this.weatherIcon, response.weather[0].id)
 
 
   console.log(response);
 
+} else{
+  this.setState({error : true});
+
+}
 };
   render(){
   return (
   <div className="App">
-    <Form />
+    <Form loadweather={this.getWeather} error={this.state.error}/>
     <Weather
     city={this.state.city}
     country={this.state.country} 

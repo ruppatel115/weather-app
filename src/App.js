@@ -62,9 +62,7 @@ class App extends React.Component {
     if(rangeNum >= 600 && rangeNum <=622){
       this.setState({icon:this.weatherIcon.Snow})
     }
-    if(rangeNum >= 600 && rangeNum <=622){
-      this.setState({icon:this.weatherIcon.Snow})
-    }
+ 
     if(rangeNum === 800){
       this.setState({icon:this.weatherIcon.Atmosphere})
     }
@@ -94,9 +92,9 @@ class App extends React.Component {
   //print out values
   
 
+  //setting state for all the values we get from the api call
   this.setState({
-    city: response.name,
-    country: response.sys.country,
+    city: `${response.name}, ${response.sys.country}`,
     faren : this.calcFaren(response.main.temp),
     temp_max : this.calcFaren(response.main.temp_max),
     temp_min : this.calcFaren(response.main.temp_min),
@@ -110,11 +108,17 @@ class App extends React.Component {
   console.log(response);
 
 } else{
+  //if bad call then just print out an error 
   this.setState({error : true});
 
 }
 };
+
+
+
   render(){
+
+
   return (
   <div className="App">
     <Form loadweather={this.getWeather} error={this.state.error}/>
